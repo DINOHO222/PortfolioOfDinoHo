@@ -1,5 +1,7 @@
 import React from 'react';
-import { X, Mail, Github, Smartphone } from 'lucide-react';
+import { X, Mail, Github, Smartphone, Copy } from 'lucide-react';
+import { useToast } from '../hooks/useToast';
+import { profileData } from '../data/profile';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -7,14 +9,22 @@ interface ContactModalProps {
 }
 
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
+  const { showToast } = useToast();
+
+  const handleCopy = (e: React.MouseEvent, text: string, type: string) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(text);
+    showToast(`已複製${type}到剪貼簿！`, 'success');
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-chic-black/60 backdrop-blur-sm p-4 transition-all duration-300"
       onClick={onClose}
     >
-      <div 
+      <div
         className="bg-chic-white border-2 border-chic-black w-full max-w-md relative shadow-[12px_12px_0px_0px_rgba(255,79,0,1)] animate-modal-pop origin-center perspective-1000"
         onClick={(e) => e.stopPropagation()}
       >
@@ -22,9 +32,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
         <div className="bg-chic-black text-white p-4 flex justify-between items-center relative overflow-hidden">
           {/* Decorative element in header */}
           <div className="absolute top-0 right-0 w-16 h-full bg-white/5 skew-x-12 -mr-4"></div>
-          
+
           <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wider animate-slide-up-fade [animation-delay:100ms] opacity-0">Contact Info</h3>
-          <button 
+          <button
             onClick={onClose}
             data-cursor="hover"
             className="hover:text-chic-orange transition-colors z-10 animate-slide-up-fade [animation-delay:150ms] opacity-0"
@@ -40,33 +50,35 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
           </p>
 
           <div className="space-y-3 md:space-y-4">
-            <a 
-              href="tel:0976833356" 
+            <button
+              onClick={(e) => handleCopy(e, profileData.contact.phone, '電話號碼')}
               data-cursor="hover"
-              className="flex items-center gap-4 p-3 md:p-4 border border-chic-black hover:bg-chic-black hover:text-white transition-all group animate-slide-up-fade [animation-delay:300ms] opacity-0 hover:translate-x-1 duration-200"
+              className="w-full flex items-center gap-4 p-3 md:p-4 border border-chic-black hover:bg-chic-black hover:text-white transition-all group animate-slide-up-fade [animation-delay:300ms] opacity-0 hover:translate-x-1 duration-200"
             >
               <Smartphone className="w-5 h-5 md:w-6 md:h-6 text-chic-orange group-hover:text-white transition-colors" />
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left flex-1">
                 <span className="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 group-hover:text-gray-400">Phone</span>
-                <span className="text-base md:text-lg font-bold font-mono">0976-833-356</span>
+                <span className="text-base md:text-lg font-bold font-mono">{profileData.contact.phone}</span>
               </div>
-            </a>
+              <Copy className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
 
-            <a 
-              href="mailto:dinothefresno@gmail.com" 
+            <button
+              onClick={(e) => handleCopy(e, profileData.contact.email, '信箱地址')}
               data-cursor="hover"
-              className="flex items-center gap-4 p-3 md:p-4 border border-chic-black hover:bg-chic-black hover:text-white transition-all group animate-slide-up-fade [animation-delay:400ms] opacity-0 hover:translate-x-1 duration-200"
+              className="w-full flex items-center gap-4 p-3 md:p-4 border border-chic-black hover:bg-chic-black hover:text-white transition-all group animate-slide-up-fade [animation-delay:400ms] opacity-0 hover:translate-x-1 duration-200"
             >
               <Mail className="w-5 h-5 md:w-6 md:h-6 text-chic-orange group-hover:text-white transition-colors" />
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left flex-1">
                 <span className="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 group-hover:text-gray-400">Email</span>
-                <span className="text-base md:text-lg font-bold font-mono break-all">dinothefresno@gmail.com</span>
+                <span className="text-base md:text-lg font-bold font-mono break-all">{profileData.contact.email}</span>
               </div>
-            </a>
+              <Copy className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
 
-            <a 
-              href="https://github.com/DINOHO222" 
-              target="_blank" 
+            <a
+              href={profileData.contact.githubUrl}
+              target="_blank"
               rel="noopener noreferrer"
               data-cursor="hover"
               className="flex items-center gap-4 p-3 md:p-4 border border-chic-black hover:bg-chic-black hover:text-white transition-all group animate-slide-up-fade [animation-delay:500ms] opacity-0 hover:translate-x-1 duration-200"
@@ -74,12 +86,12 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               <Github className="w-5 h-5 md:w-6 md:h-6 text-chic-orange group-hover:text-white transition-colors" />
               <div className="flex flex-col">
                 <span className="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 group-hover:text-gray-400">Github</span>
-                <span className="text-base md:text-lg font-bold font-mono">@DinoHo</span>
+                <span className="text-base md:text-lg font-bold font-mono">@{profileData.contact.github}</span>
               </div>
             </a>
           </div>
 
-          <button 
+          <button
             onClick={onClose}
             data-cursor="hover"
             className="mt-2 md:mt-4 w-full bg-chic-orange text-white py-3 font-bold uppercase hover:bg-chic-black transition-colors border border-chic-black animate-slide-up-fade [animation-delay:600ms] opacity-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"

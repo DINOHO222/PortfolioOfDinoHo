@@ -16,6 +16,6 @@
 - **Styling:** Tailwind CSS v3 
 
 ##  Key Features
-- **Custom Cursor:** 針對桌面版設計的互動式游標系統。
+- **Custom Cursor:** 針對桌面版設計的互動式游標。
 - **Interactive Typography:** 滑鼠互動標題與動態跑馬燈效果。
 - **Responsive Design:** 完美支援桌機與行動裝置的自適應排版。

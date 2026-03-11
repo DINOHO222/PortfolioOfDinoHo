@@ -1,5 +1,6 @@
 import React from 'react';
 import FadeIn from './FadeIn';
+import { profileData } from '../data/profile';
 
 const About: React.FC = () => {
     return (
@@ -41,41 +42,30 @@ const About: React.FC = () => {
                 <div className="w-full md:w-7/12 pt-4 md:pt-20">
                     <FadeIn delay={200}>
                         <h2 className="text-3xl md:text-6xl font-black mb-8 md:mb-10 leading-[0.9] tracking-tight uppercase text-center md:text-left">
-                            Combining <br />
-                            <span className="text-chic-orange font-serif italic font-normal normal-case">Technology</span> & <br />
-                            Aesthetics.
+                            {profileData.about.heading.line1} <br />
+                            <span className="text-chic-orange font-serif italic font-normal normal-case">{profileData.about.heading.highlight}</span> <br />
+                            {profileData.about.heading.line2}
                         </h2>
                     </FadeIn>
 
                     <div className="space-y-6 md:space-y-8">
                         <FadeIn delay={300}>
-                            <p className="text-base md:text-xl leading-relaxed font-serif text-chic-black border-l-4 border-chic-orange pl-4 md:pl-6 font-medium">
-                                我是一個對美感和技術都充滿熱情的人<br />
-                                相信好的設計能夠改善人們的使用體驗
+                            <p className="text-base md:text-xl leading-relaxed font-serif text-chic-black border-l-4 border-chic-orange pl-4 md:pl-6 font-medium whitespace-pre-line">
+                                {profileData.about.quote}
                             </p>
                         </FadeIn>
 
                         <FadeIn delay={400}>
                             <div className="text-gray-600 leading-loose text-justify space-y-4 md:space-y-6 text-sm md:text-base">
-                                <p>
-                                    我是DINO，我熱愛跳舞，享受在律動中表達自我的感受，這培養了我對美感的敏銳度和追求完美的態度。
-                                    無論是跳舞，還是使用介面的視覺美感，我都追求那份與人息息相關的美好體驗。
-                                </p>
-                                <p>
-                                    平時愛好研究 3C 產品和前端設計開發，尤其是 UI/UX 設計領域。我喜歡打造美觀且有溫度的介面。
-                                    在學習和實作方面，我具備高度執行力。這份對美的執著和實作的熱忱，讓我希望在資訊管理領域中，結合技術與美學，創造更有價值的數位體驗。
-                                </p>
+                                {profileData.about.paragraphs.map((p, index) => (
+                                    <p key={index}>{p}</p>
+                                ))}
                             </div>
                         </FadeIn>
                     </div>
 
                     <FadeIn delay={500} className="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 mt-12 md:mt-16 border-t-2 border-chic-black pt-8 md:pt-12">
-                        {[
-                            { label: 'Role', val: 'Frontend / UI/UX' },
-                            { label: 'Passion', val: 'Street Dance / Tech' },
-                            { label: 'Vibe', val: 'Self-Starter / Detail-Oriented' },
-                            { label: 'Collaboration', val: 'Communicative / Open-Minded' },
-                        ].map((item, idx) => (
+                        {profileData.about.traits.map((item, idx) => (
                             <div key={idx} className="relative group">
                                 <span className="absolute -left-3 top-2 w-2 h-2 bg-chic-orange rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                 <h4 className="font-bold uppercase text-[10px] md:text-xs tracking-[0.2em] mb-1 text-gray-400 group-hover:text-chic-black transition-colors">{item.label}</h4>

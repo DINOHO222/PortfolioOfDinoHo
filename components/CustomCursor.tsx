@@ -19,8 +19,7 @@ const CustomCursor: React.FC = () => {
     const moveCursor = (e: MouseEvent) => {
       if (cursorRef.current && followerRef.current) {
         cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        // Follower has a slight delay handled by CSS transition usually, but here we set position directly
-        // For smoother lag, we often use requestAnimationFrame, but simple CSS transition on the follower works for "chic" feel
+        // 滑鼠游標的跟隨效果
          followerRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       }
       

@@ -1,5 +1,6 @@
 import React from 'react';
 import FadeIn from './FadeIn';
+import { profileData } from '../data/profile';
 
 interface FooterProps {
     onOpenContact: () => void;
@@ -36,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
 
                 <div className="flex justify-center items-center border-t border-chic-black pt-8 w-full">
                     <p className="text-[10px] md:text-sm font-mono uppercase text-gray-500 text-center leading-relaxed">
-                        © 2026 DINO HO PORTFOLIO. <br />
+                        © {profileData.currentYear} DINO HO PORTFOLIO. <br />
 
                     </p>
                 </div>
